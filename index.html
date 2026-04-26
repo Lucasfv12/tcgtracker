@@ -21,167 +21,84 @@
     --font-mono: 'Space Mono', monospace;
     --font-main: 'Rajdhani', sans-serif;
   }
-  body {
-    background: var(--poke-dark);
-    color: var(--poke-text);
-    font-family: var(--font-main);
-    font-size: 15px;
-    line-height: 1.5;
-    min-height: 100vh;
-  }
+  body { background: var(--poke-dark); color: var(--poke-text); font-family: var(--font-main); font-size: 15px; line-height: 1.5; min-height: 100vh; }
 
-  /* Sync indicator */
   #syncStatus {
-    position: fixed;
-    top: 10px; right: 14px;
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 1px;
-    padding: 4px 10px;
-    border-radius: 4px;
-    z-index: 999;
-    transition: all 0.3s;
+    position: fixed; top: 10px; right: 14px;
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: 1px;
+    padding: 4px 10px; border-radius: 4px; z-index: 999; transition: all 0.3s;
   }
   #syncStatus.syncing { background: rgba(42,117,187,0.15); color: #60a5fa; border: 1px solid rgba(42,117,187,0.3); }
   #syncStatus.saved   { background: rgba(34,197,94,0.1);  color: #4ade80; border: 1px solid rgba(34,197,94,0.25); }
   #syncStatus.error   { background: rgba(204,0,0,0.1);    color: #f87171; border: 1px solid rgba(204,0,0,0.25); }
   #syncStatus.loading { background: rgba(255,215,0,0.08); color: var(--poke-yellow); border: 1px solid rgba(255,215,0,0.2); }
 
-  /* Header */
   .header {
-    background: var(--poke-surface);
-    border-bottom: 1px solid var(--poke-border);
-    padding: 16px 20px 12px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    flex-wrap: wrap;
+    background: var(--poke-surface); border-bottom: 1px solid var(--poke-border);
+    padding: 16px 20px 12px; display: flex; align-items: center;
+    justify-content: space-between; gap: 12px; flex-wrap: wrap;
   }
   .header-left { display: flex; align-items: center; gap: 10px; }
   .pokeball {
-    width: 28px; height: 28px;
-    border-radius: 50%;
+    width: 28px; height: 28px; border-radius: 50%;
     background: linear-gradient(180deg, var(--poke-red) 50%, white 50%);
-    border: 2px solid #333;
-    position: relative;
-    flex-shrink: 0;
+    border: 2px solid #333; position: relative; flex-shrink: 0;
   }
   .pokeball::after {
-    content: '';
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 8px; height: 8px;
-    background: white;
-    border-radius: 50%;
-    border: 2px solid #333;
+    content: ''; position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%,-50%); width: 8px; height: 8px;
+    background: white; border-radius: 50%; border: 2px solid #333;
   }
-  .header h1 {
-    font-family: var(--font-main);
-    font-size: 18px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    color: var(--poke-yellow);
-    text-transform: uppercase;
-  }
+  .header h1 { font-size: 18px; font-weight: 700; letter-spacing: 2px; color: var(--poke-yellow); text-transform: uppercase; }
   .header h1 span { color: var(--poke-text); }
+  .header-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 
   .fx-control {
     display: flex; align-items: center; gap: 8px;
-    background: var(--poke-card);
-    border: 1px solid var(--poke-border);
-    border-radius: 6px;
-    padding: 6px 10px;
+    background: var(--poke-card); border: 1px solid var(--poke-border); border-radius: 6px; padding: 6px 10px;
   }
   .fx-control label { font-size: 12px; color: var(--poke-subtext); letter-spacing: 1px; white-space: nowrap; }
   .fx-control input[type=number] {
-    background: transparent;
-    border: none;
-    color: var(--poke-yellow);
-    font-family: var(--font-mono);
-    font-size: 13px;
-    font-weight: 700;
-    width: 70px;
-    text-align: right;
-    outline: none;
+    background: transparent; border: none; color: var(--poke-yellow);
+    font-family: var(--font-mono); font-size: 13px; font-weight: 700;
+    width: 70px; text-align: right; outline: none;
   }
   .fx-control input[type=number]::-webkit-inner-spin-button { display: none; }
 
-  /* Metrics */
+  .btn-admin {
+    background: transparent; border: 1px solid var(--poke-yellow); border-radius: 6px;
+    color: var(--poke-yellow); font-family: var(--font-mono); font-size: 11px;
+    padding: 6px 12px; cursor: pointer; letter-spacing: 1px; transition: all 0.15s; white-space: nowrap;
+  }
+  .btn-admin:hover { background: var(--poke-yellow); color: #000; }
+
   .metrics {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 10px;
-    padding: 14px 20px;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px; padding: 14px 20px;
   }
-  .metric {
-    background: var(--poke-card);
-    border: 1px solid var(--poke-border);
-    border-radius: 8px;
-    padding: 12px 14px;
-  }
+  .metric { background: var(--poke-card); border: 1px solid var(--poke-border); border-radius: 8px; padding: 12px 14px; }
   .metric.accent-yellow { border-left: 3px solid var(--poke-yellow); }
   .metric.accent-blue   { border-left: 3px solid var(--poke-blue); }
   .metric.accent-red    { border-left: 3px solid var(--poke-red); }
   .metric.accent-green  { border-left: 3px solid #22c55e; }
-  .metric-label {
-    font-size: 10px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--poke-subtext);
-    margin-bottom: 4px;
-  }
-  .metric-value {
-    font-family: var(--font-mono);
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--poke-text);
-    line-height: 1.2;
-  }
+  .metric-label { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--poke-subtext); margin-bottom: 4px; }
+  .metric-value { font-family: var(--font-mono); font-size: 16px; font-weight: 700; line-height: 1.2; }
   .metric-value.yellow { color: var(--poke-yellow); }
   .metric-value.blue   { color: #60a5fa; }
   .metric-value.red    { color: #f87171; }
   .metric-value.green  { color: #4ade80; }
 
-  /* Progress */
   .progress-section { padding: 0 20px 14px; }
-  .progress-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 8px;
-    font-size: 12px;
-    letter-spacing: 1px;
-    color: var(--poke-subtext);
-    text-transform: uppercase;
-  }
+  .progress-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 12px; letter-spacing: 1px; color: var(--poke-subtext); text-transform: uppercase; }
   .progress-pct { font-family: var(--font-mono); font-weight: 700; color: var(--poke-yellow); font-size: 14px; }
-  .progress-bar-bg {
-    height: 10px;
-    background: var(--poke-border);
-    border-radius: 5px;
-    overflow: hidden;
-  }
-  .progress-bar-fill {
-    height: 100%;
-    border-radius: 5px;
-    background: linear-gradient(90deg, var(--poke-blue), var(--poke-yellow));
-    transition: width 0.4s ease;
-  }
+  .progress-bar-bg { height: 10px; background: var(--poke-border); border-radius: 5px; overflow: hidden; }
+  .progress-bar-fill { height: 100%; border-radius: 5px; background: linear-gradient(90deg, var(--poke-blue), var(--poke-yellow)); transition: width 0.4s ease; }
   .progress-bar-fill.done { background: linear-gradient(90deg, #22c55e, #4ade80); }
 
-  /* Net banner */
   .net-banner {
-    margin: 0 20px 14px;
-    background: rgba(34,197,94,0.08);
-    border: 1px solid rgba(34,197,94,0.25);
-    border-radius: 8px;
-    padding: 10px 16px;
-    display: none;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 13px;
+    margin: 0 20px 14px; background: rgba(34,197,94,0.08);
+    border: 1px solid rgba(34,197,94,0.25); border-radius: 8px;
+    padding: 10px 16px; display: none; align-items: center; justify-content: space-between;
   }
   .net-banner.visible { display: flex; }
   .net-label { color: #4ade80; letter-spacing: 1px; text-transform: uppercase; font-size: 11px; }
@@ -189,83 +106,140 @@
 
   .divider { height: 1px; background: var(--poke-border); margin: 0 20px 14px; }
 
-  /* Table */
-  .table-wrap { padding: 0 20px 32px; overflow-x: auto; }
-  table { width: 100%; border-collapse: collapse; font-size: 13px; table-layout: fixed; }
-  thead th {
-    text-align: left;
-    padding: 8px 10px;
-    font-size: 10px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--poke-subtext);
-    border-bottom: 1px solid var(--poke-border);
-    font-family: var(--font-mono);
-    font-weight: 400;
-    white-space: nowrap;
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 14px; padding: 0 20px 32px;
   }
-  tbody tr {
-    border-bottom: 1px solid var(--poke-border);
-    transition: background 0.15s;
+  .card-item {
+    background: var(--poke-card); border: 1px solid var(--poke-border);
+    border-radius: 10px; overflow: hidden; transition: border-color 0.2s, transform 0.15s; position: relative;
   }
-  tbody tr:hover { background: rgba(255,255,255,0.02); }
-  tbody tr.sold { opacity: 0.45; text-decoration: line-through; text-decoration-color: var(--poke-muted); }
-  tbody td { padding: 9px 10px; vertical-align: middle; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .item-name { font-weight: 600; color: var(--poke-text); font-size: 13px; }
-  .price-usd { font-family: var(--font-mono); color: var(--poke-subtext); font-size: 12px; }
-  .price-ars { font-family: var(--font-mono); color: #60a5fa; font-size: 12px; }
-  .sale-input {
-    background: transparent;
-    border: 1px solid var(--poke-border);
-    border-radius: 4px;
-    color: var(--poke-yellow);
-    font-family: var(--font-mono);
-    font-size: 12px;
-    width: 90px;
-    padding: 3px 6px;
-    text-align: right;
-    outline: none;
-    transition: border-color 0.2s;
+  .card-item:hover { border-color: var(--poke-yellow); transform: translateY(-2px); }
+  .card-item.sold { opacity: 0.4; }
+  .card-item.sold::after {
+    content: 'VENDIDA'; position: absolute; top: 8px; left: 0; right: 0;
+    text-align: center; background: rgba(204,0,0,0.85); color: white;
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; padding: 3px 0;
   }
-  .sale-input:focus { border-color: var(--poke-yellow); }
-  .sale-input::-webkit-inner-spin-button { display: none; }
-  .profit-cell { font-family: var(--font-mono); font-size: 12px; }
+  .card-img-wrap {
+    width: 100%; aspect-ratio: 3/4; background: #111;
+    display: flex; align-items: center; justify-content: center; overflow: hidden;
+  }
+  .card-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+  .card-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 16px; text-align: center; }
+  .placeholder-ball { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(180deg, var(--poke-red) 50%, white 50%); border: 2px solid #444; opacity: 0.4; }
+  .placeholder-text { font-size: 11px; color: var(--poke-muted); }
+
+  .card-body { padding: 10px; }
+  .card-name { font-size: 12px; font-weight: 600; color: var(--poke-text); margin-bottom: 6px; line-height: 1.3; }
+  .card-prices { display: flex; flex-direction: column; gap: 3px; margin-bottom: 8px; }
+  .card-price-row { display: flex; justify-content: space-between; align-items: center; }
+  .card-price-label { font-size: 10px; color: var(--poke-subtext); }
+  .card-price-val.usd { font-family: var(--font-mono); font-size: 11px; color: var(--poke-subtext); }
+  .card-price-val.ars { font-family: var(--font-mono); font-size: 11px; color: #60a5fa; }
+  .card-sale-input {
+    width: 100%; background: transparent; border: 1px solid var(--poke-border);
+    border-radius: 4px; color: var(--poke-yellow); font-family: var(--font-mono);
+    font-size: 11px; padding: 4px 8px; text-align: right; outline: none;
+    margin-bottom: 8px; transition: border-color 0.2s;
+  }
+  .card-sale-input:focus { border-color: var(--poke-yellow); }
+  .card-sale-input::-webkit-inner-spin-button { display: none; }
+  .card-result { font-family: var(--font-mono); font-size: 11px; text-align: right; margin-bottom: 8px; min-height: 16px; }
   .profit-pos { color: #4ade80; }
   .profit-neg { color: #f87171; }
   .profit-na  { color: var(--poke-muted); }
-  .search-btn {
-    background: transparent;
-    border: 1px solid var(--poke-border);
-    border-radius: 4px;
-    color: var(--poke-blue);
-    font-family: var(--font-mono);
-    font-size: 10px;
-    padding: 3px 7px;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: all 0.15s;
-    letter-spacing: 0.5px;
+  .card-footer { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+  .sold-label { display: flex; align-items: center; gap: 5px; cursor: pointer; font-size: 11px; color: var(--poke-subtext); }
+  .sold-label input[type=checkbox] { width: 14px; height: 14px; accent-color: var(--poke-yellow); cursor: pointer; }
+  .tcg-link {
+    font-family: var(--font-mono); font-size: 9px; color: var(--poke-blue);
+    border: 1px solid var(--poke-border); border-radius: 4px; padding: 2px 6px;
+    cursor: pointer; background: transparent; transition: all 0.15s; white-space: nowrap;
   }
-  .search-btn:hover { background: var(--poke-blue); color: white; border-color: var(--poke-blue); }
-  .chk-wrap { display: flex; align-items: center; justify-content: center; }
-  input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--poke-yellow); cursor: pointer; }
+  .tcg-link:hover { background: var(--poke-blue); color: white; border-color: var(--poke-blue); }
 
-  col.c-chk  { width: 36px; }
-  col.c-name { width: auto; }
-  col.c-usd  { width: 72px; }
-  col.c-ars  { width: 88px; }
-  col.c-sale { width: 100px; }
-  col.c-prof { width: 88px; }
-  col.c-link { width: 84px; }
+  /* MODAL */
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.8);
+    align-items: center; justify-content: center; z-index: 1000; padding: 20px; display: none;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--poke-surface); border: 1px solid var(--poke-border);
+    border-radius: 12px; width: 100%; max-width: 560px; max-height: 85vh; overflow-y: auto;
+  }
+  .modal-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 20px; border-bottom: 1px solid var(--poke-border);
+    position: sticky; top: 0; background: var(--poke-surface); z-index: 1;
+  }
+  .modal-header h2 { font-size: 15px; letter-spacing: 2px; text-transform: uppercase; color: var(--poke-yellow); }
+  .modal-close { background: transparent; border: none; color: var(--poke-subtext); font-size: 20px; cursor: pointer; padding: 0 4px; }
+  .modal-close:hover { color: var(--poke-text); }
+  .modal-body { padding: 20px; }
 
-  /* Mobile */
+  .form-section { margin-bottom: 24px; }
+  .form-section h3 { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--poke-subtext); margin-bottom: 12px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+  .form-group { display: flex; flex-direction: column; gap: 4px; }
+  .form-group.full { grid-column: 1 / -1; }
+  .form-label { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--poke-subtext); }
+  .form-input {
+    background: var(--poke-card); border: 1px solid var(--poke-border); border-radius: 6px;
+    color: var(--poke-text); font-family: var(--font-mono); font-size: 12px;
+    padding: 7px 10px; outline: none; transition: border-color 0.2s; width: 100%;
+  }
+  .form-input:focus { border-color: var(--poke-yellow); }
+  .form-input::-webkit-inner-spin-button { display: none; }
+  .btn-add {
+    width: 100%; background: var(--poke-yellow); border: none; border-radius: 6px;
+    color: #000; font-family: var(--font-mono); font-size: 12px; font-weight: 700;
+    padding: 10px; cursor: pointer; letter-spacing: 1px; transition: opacity 0.15s;
+  }
+  .btn-add:hover { opacity: 0.85; }
+
+  .admin-list { display: flex; flex-direction: column; gap: 8px; }
+  .admin-item {
+    background: var(--poke-card); border: 1px solid var(--poke-border);
+    border-radius: 8px; padding: 10px 12px; display: flex; align-items: center; gap: 10px;
+  }
+  .admin-item-info { flex: 1; min-width: 0; }
+  .admin-item-name { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .admin-item-meta { font-family: var(--font-mono); font-size: 10px; color: var(--poke-subtext); }
+  .admin-item-actions { display: flex; gap: 6px; flex-shrink: 0; }
+  .btn-edit, .btn-del {
+    background: transparent; border-radius: 4px; font-family: var(--font-mono);
+    font-size: 10px; padding: 4px 8px; cursor: pointer; border: 1px solid; transition: all 0.15s;
+  }
+  .btn-edit { border-color: var(--poke-blue); color: var(--poke-blue); }
+  .btn-edit:hover { background: var(--poke-blue); color: white; }
+  .btn-del  { border-color: var(--poke-red); color: #f87171; }
+  .btn-del:hover  { background: var(--poke-red); color: white; }
+
+  .admin-edit-row {
+    background: var(--poke-card); border: 1px solid var(--poke-yellow);
+    border-radius: 8px; padding: 12px; display: flex; flex-direction: column; gap: 8px;
+  }
+  .edit-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .btn-save-edit {
+    background: var(--poke-yellow); border: none; border-radius: 4px;
+    color: #000; font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+    padding: 6px; cursor: pointer; flex: 1;
+  }
+  .btn-cancel-edit {
+    background: transparent; border: 1px solid var(--poke-border); border-radius: 4px;
+    color: var(--poke-subtext); font-family: var(--font-mono); font-size: 11px;
+    padding: 6px; cursor: pointer; flex: 1;
+  }
+
   @media (max-width: 600px) {
+    .cards-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; padding: 0 12px 24px; }
+    .metrics { padding: 10px 12px; }
+    .progress-section { padding: 0 12px 12px; }
+    .form-row { grid-template-columns: 1fr 1fr; }
     .header h1 { font-size: 14px; }
-    .metrics { grid-template-columns: repeat(2, 1fr); }
-    col.c-usd, col.c-link { width: 0; display: none; }
-    td:nth-child(3), td:nth-child(7),
-    th:nth-child(3), th:nth-child(7) { display: none; }
-    .sale-input { width: 75px; }
   }
 </style>
 </head>
@@ -278,10 +252,13 @@
     <div class="pokeball"></div>
     <h1>Pokémon <span>TCG Tracker</span></h1>
   </div>
-  <div class="fx-control">
-    <label>1 USD =</label>
-    <input type="number" id="fxRate" value="1420" step="10" min="100" />
-    <label style="color: var(--poke-text); font-size: 12px;">ARS</label>
+  <div class="header-right">
+    <div class="fx-control">
+      <label>1 USD =</label>
+      <input type="number" id="fxRate" value="1420" step="10" min="100" />
+      <label style="color: var(--poke-text); font-size: 12px;">ARS</label>
+    </div>
+    <button class="btn-admin" onclick="openAdmin()">⚙ ADMIN</button>
   </div>
 </div>
 
@@ -303,29 +280,52 @@
 </div>
 
 <div class="divider"></div>
+<div class="cards-grid" id="cardsGrid"></div>
 
-<div class="table-wrap">
-  <table>
-    <colgroup>
-      <col class="c-chk"><col class="c-name"><col class="c-usd">
-      <col class="c-ars"><col class="c-sale"><col class="c-prof"><col class="c-link">
-    </colgroup>
-    <thead>
-      <tr>
-        <th>✓</th>
-        <th>Ítem</th>
-        <th>USD</th>
-        <th>Costo ARS</th>
-        <th>Precio Venta</th>
-        <th>Resultado</th>
-        <th>Buscar</th>
-      </tr>
-    </thead>
-    <tbody id="tableBody"></tbody>
-  </table>
+<!-- Modal Admin -->
+<div class="modal-overlay" id="adminModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>⚙ Panel de Admin</h2>
+      <button class="modal-close" onclick="closeAdmin()">✕</button>
+    </div>
+    <div class="modal-body">
+
+      <div class="form-section">
+        <h3>Inversión total</h3>
+        <div style="display:flex; gap:8px; align-items:center;">
+          <input class="form-input" type="number" id="totalInput" step="1000" placeholder="273610" style="flex:1;" />
+          <button class="btn-add" style="width:auto; padding:9px 16px;" onclick="saveTotal()">GUARDAR</button>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h3>Agregar ítem</h3>
+        <div class="form-row">
+          <div class="form-group full">
+            <span class="form-label">Nombre</span>
+            <input class="form-input" type="text" id="newName" placeholder="Ej: Charizard ex SAR" />
+          </div>
+          <div class="form-group">
+            <span class="form-label">Costo USD</span>
+            <input class="form-input" type="number" id="newUsd" placeholder="0" step="0.5" />
+          </div>
+          <div class="form-group">
+            <span class="form-label">Venta ARS</span>
+            <input class="form-input" type="number" id="newSale" placeholder="Opcional" step="500" />
+          </div>
+        </div>
+        <button class="btn-add" onclick="addItem()">+ AGREGAR ÍTEM</button>
+      </div>
+
+      <div class="form-section">
+        <h3>Ítems actuales</h3>
+        <div class="admin-list" id="adminList"></div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<!-- Firebase SDK -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
@@ -340,63 +340,69 @@
   };
 
   const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
+  const db  = getFirestore(app);
   const DOC_REF = doc(db, "tracker", "estado");
-  const TOTAL_INVERTIDO = 273610;
+
+  let totalInvertido = 273610;
+  let saveTimer = null;
+  let editingId = null;
+  let nextId = 14;
+  const imgCache = {};
 
   const ITEMS_DEFAULT = [
-    { name: "Pack Charm Clefairy",           usd: 14, sale: 20000 },
-    { name: "Pack Charm Gastly/Gengar",       usd: 14, sale: 35000 },
-    { name: "Pack Charm Eeveelutions",        usd: 17, sale: 65000 },
-    { name: "Poliwhirl AR 151",              usd: 9,  sale: null  },
-    { name: "Ivysaur AR 151",               usd: 7,  sale: null  },
-    { name: "Lapras AR",                    usd: 10, sale: null  },
-    { name: "Pikachu Promo Set x2",         usd: 8,  sale: null  },
-    { name: "Pikachu Promo 001/SV-P",       usd: 10, sale: null  },
-    { name: "Pack Rocket Meowth/Persian AR", usd: 17, sale: null  },
-    { name: "Cleffa AR",                    usd: 6,  sale: null  },
-    { name: "Nidoking/Caterpie/Tangela AR", usd: 10, sale: null  },
-    { name: "Horsea AR",                    usd: 5,  sale: null  },
-    { name: "Persian Vintage",              usd: 4,  sale: null  },
-    { name: "Wobbuffet/Kangaskhan",         usd: 11, sale: null  },
+    { id:0,  name: "Pack Charm Clefairy",           usd: 14, sale: 20000, sold: false },
+    { id:1,  name: "Pack Charm Gastly/Gengar",       usd: 14, sale: 35000, sold: false },
+    { id:2,  name: "Pack Charm Eeveelutions",        usd: 17, sale: 65000, sold: false },
+    { id:3,  name: "Poliwhirl AR 151",              usd: 9,  sale: null,  sold: false },
+    { id:4,  name: "Ivysaur AR 151",               usd: 7,  sale: null,  sold: false },
+    { id:5,  name: "Lapras AR",                    usd: 10, sale: null,  sold: false },
+    { id:6,  name: "Pikachu Promo Set x2",         usd: 8,  sale: null,  sold: false },
+    { id:7,  name: "Pikachu Promo 001/SV-P",       usd: 10, sale: null,  sold: false },
+    { id:8,  name: "Pack Rocket Meowth/Persian AR", usd: 17, sale: null,  sold: false },
+    { id:9,  name: "Cleffa AR",                    usd: 6,  sale: null,  sold: false },
+    { id:10, name: "Nidoking/Caterpie/Tangela AR", usd: 10, sale: null,  sold: false },
+    { id:11, name: "Horsea AR",                    usd: 5,  sale: null,  sold: false },
+    { id:12, name: "Persian Vintage",              usd: 4,  sale: null,  sold: false },
+    { id:13, name: "Wobbuffet/Kangaskhan",         usd: 11, sale: null,  sold: false },
   ];
 
-  let state = ITEMS_DEFAULT.map((it, i) => ({ ...it, sold: false, id: i }));
-  let fxRate = 1420;
-  let saveTimer = null;
+  let state = ITEMS_DEFAULT.map(it => ({ ...it }));
 
   const syncEl = document.getElementById('syncStatus');
+  function setSync(mode, text) { syncEl.className = mode; syncEl.textContent = text; }
 
-  function setSync(mode, text) {
-    syncEl.className = mode;
-    syncEl.textContent = text;
+  // Extract first pokemon name for API query
+  function extractPokemonName(name) {
+    return name
+      .replace(/pack charm/i, '')
+      .replace(/ar\s*\d*/i, '')
+      .replace(/promo.*/i, '')
+      .replace(/vintage/i, '')
+      .replace(/set x\d/i, '')
+      .replace(/\d{3}\/sv-p/i, '')
+      .replace(/\//g, ' ')
+      .trim()
+      .split(/\s+/)[0];
   }
 
-  // Load from Firestore
-  async function loadState() {
-    setSync('loading', 'CARGANDO...');
+  async function fetchCardImage(name) {
+    if (imgCache[name] !== undefined) return imgCache[name];
+    const q = extractPokemonName(name);
+    if (!q || q.length < 3) { imgCache[name] = null; return null; }
     try {
-      const snap = await getDoc(DOC_REF);
-      if (snap.exists()) {
-        const data = snap.data();
-        fxRate = data.fxRate || 1420;
-        document.getElementById('fxRate').value = fxRate;
-        if (data.items && data.items.length === state.length) {
-          data.items.forEach((saved, i) => {
-            state[i].sold = saved.sold || false;
-            state[i].sale = saved.sale !== undefined ? saved.sale : state[i].sale;
-          });
-        }
-      }
-      setSync('saved', '● SINCRONIZADO');
-    } catch (e) {
-      setSync('error', '✕ ERROR DE CONEXIÓN');
-      console.error(e);
+      const r = await fetch(`https://api.pokemontcg.io/v2/cards?q=name:"${encodeURIComponent(q)}"&pageSize=1&select=images,name`);
+      const d = await r.json();
+      const img = d.data?.[0]?.images?.small || null;
+      imgCache[name] = img;
+      return img;
+    } catch {
+      imgCache[name] = null;
+      return null;
     }
-    render();
   }
 
-  // Save to Firestore (debounced 1.2s)
+  function fmt(n) { return '$' + Math.round(n).toLocaleString('es-AR'); }
+
   function scheduleSave() {
     setSync('syncing', '↑ GUARDANDO...');
     clearTimeout(saveTimer);
@@ -404,124 +410,218 @@
       try {
         await setDoc(DOC_REF, {
           fxRate: parseFloat(document.getElementById('fxRate').value) || 1420,
-          items: state.map(it => ({ sold: it.sold, sale: it.sale })),
+          totalInvertido,
+          items: state,
+          nextId,
           updatedAt: new Date().toISOString()
         });
         setSync('saved', '● SINCRONIZADO');
-      } catch (e) {
+      } catch(e) {
         setSync('error', '✕ ERROR AL GUARDAR');
-        console.error(e);
       }
     }, 1200);
   }
 
-  function fmt(n) {
-    return '$' + Math.round(n).toLocaleString('es-AR');
+  async function loadState() {
+    setSync('loading', 'CARGANDO...');
+    try {
+      const snap = await getDoc(DOC_REF);
+      if (snap.exists()) {
+        const d = snap.data();
+        if (d.fxRate) document.getElementById('fxRate').value = d.fxRate;
+        if (d.totalInvertido) totalInvertido = d.totalInvertido;
+        if (d.items && d.items.length) state = d.items;
+        if (d.nextId) nextId = d.nextId;
+      }
+      setSync('saved', '● SINCRONIZADO');
+    } catch(e) {
+      setSync('error', '✕ ERROR DE CONEXIÓN');
+    }
+    render();
   }
 
-  function render() {
+  async function render() {
     const fx = parseFloat(document.getElementById('fxRate').value) || 1420;
-    const tbody = document.getElementById('tableBody');
-    tbody.innerHTML = '';
+    let totalRec = 0;
+    state.forEach(it => { if (it.sold && it.sale) totalRec += parseFloat(it.sale) || 0; });
 
-    let totalRecuperado = 0;
-    state.forEach(it => {
-      if (it.sold && it.sale) totalRecuperado += parseFloat(it.sale) || 0;
-    });
+    const faltante = Math.max(0, totalInvertido - totalRec);
+    const pct      = Math.min(100, Math.round((totalRec / totalInvertido) * 100));
+    const superado  = totalRec > totalInvertido;
+    const ganancia  = superado ? totalRec - totalInvertido : 0;
 
-    const faltante = Math.max(0, TOTAL_INVERTIDO - totalRecuperado);
-    const pct = Math.min(100, Math.round((totalRecuperado / TOTAL_INVERTIDO) * 100));
-    const superado = totalRecuperado > TOTAL_INVERTIDO;
-    const ganancia = superado ? totalRecuperado - TOTAL_INVERTIDO : 0;
-
-    // Metrics
     document.getElementById('metrics').innerHTML = `
-      <div class="metric accent-yellow">
-        <div class="metric-label">Inversión Total</div>
-        <div class="metric-value yellow">${fmt(TOTAL_INVERTIDO)}</div>
-      </div>
-      <div class="metric accent-blue">
-        <div class="metric-label">Recuperado</div>
-        <div class="metric-value blue">${fmt(totalRecuperado)}</div>
-      </div>
-      <div class="metric accent-red">
-        <div class="metric-label">Falta para B.E.</div>
-        <div class="metric-value red">${fmt(faltante)}</div>
-      </div>
-      <div class="metric accent-green">
-        <div class="metric-label">Ganancia Neta</div>
-        <div class="metric-value green">${fmt(ganancia)}</div>
-      </div>
+      <div class="metric accent-yellow"><div class="metric-label">Inversión Total</div><div class="metric-value yellow">${fmt(totalInvertido)}</div></div>
+      <div class="metric accent-blue"><div class="metric-label">Recuperado</div><div class="metric-value blue">${fmt(totalRec)}</div></div>
+      <div class="metric accent-red"><div class="metric-label">Falta para B.E.</div><div class="metric-value red">${fmt(faltante)}</div></div>
+      <div class="metric accent-green"><div class="metric-label">Ganancia Neta</div><div class="metric-value green">${fmt(ganancia)}</div></div>
     `;
 
-    // Progress
     document.getElementById('pctLabel').textContent = pct + '%';
     const bar = document.getElementById('progressBar');
     bar.style.width = pct + '%';
     bar.className = 'progress-bar-fill' + (superado ? ' done' : '');
 
-    // Net banner
     const banner = document.getElementById('netBanner');
-    if (superado) {
-      banner.classList.add('visible');
-      document.getElementById('netValue').textContent = fmt(ganancia);
-    } else {
-      banner.classList.remove('visible');
+    if (superado) { banner.classList.add('visible'); document.getElementById('netValue').textContent = fmt(ganancia); }
+    else banner.classList.remove('visible');
+
+    const grid = document.getElementById('cardsGrid');
+    grid.innerHTML = '';
+
+    for (const it of state) {
+      const costoArs = Math.round(it.usd * fx);
+      const saleNum  = it.sale ? parseFloat(it.sale) : 0;
+      const diff     = saleNum > 0 ? saleNum - costoArs : null;
+      const diffHtml = diff === null
+        ? `<span class="profit-na">sin precio</span>`
+        : `<span class="${diff >= 0 ? 'profit-pos' : 'profit-neg'}">${diff >= 0 ? '+' : ''}${fmt(diff)}</span>`;
+
+      const tcgUrl = `https://www.tcgplayer.com/search/pokemon/product?q=${encodeURIComponent(it.name)}`;
+      const card = document.createElement('div');
+      card.className = 'card-item' + (it.sold ? ' sold' : '');
+
+      const imgWrap = document.createElement('div');
+      imgWrap.className = 'card-img-wrap';
+      imgWrap.innerHTML = `<div class="card-placeholder"><div class="placeholder-ball"></div><span class="placeholder-text">${it.name}</span></div>`;
+
+      const body = document.createElement('div');
+      body.className = 'card-body';
+      body.innerHTML = `
+        <div class="card-name">${it.name}</div>
+        <div class="card-prices">
+          <div class="card-price-row"><span class="card-price-label">Costo</span><span class="card-price-val usd">$${it.usd} USD</span></div>
+          <div class="card-price-row"><span class="card-price-label">≈ ARS</span><span class="card-price-val ars">${fmt(costoArs)}</span></div>
+        </div>
+        <input type="number" class="card-sale-input" placeholder="Precio venta ARS"
+          value="${(it.sale !== null && it.sale !== undefined) ? it.sale : ''}" step="500" data-id="${it.id}" />
+        <div class="card-result">${diffHtml}</div>
+        <div class="card-footer">
+          <label class="sold-label">
+            <input type="checkbox" ${it.sold ? 'checked' : ''} data-id="${it.id}" /> VENDIDA
+          </label>
+          <button class="tcg-link" onclick="window.open('${tcgUrl}','_blank')">TCG ↗</button>
+        </div>`;
+
+      card.appendChild(imgWrap);
+      card.appendChild(body);
+      grid.appendChild(card);
+
+      // load image async — no re-render, just update DOM
+      fetchCardImage(it.name).then(imgUrl => {
+        if (imgUrl) imgWrap.innerHTML = `<img src="${imgUrl}" alt="${it.name}" loading="lazy" />`;
+      });
     }
 
-    // Rows
-    state.forEach(it => {
-      const costoArs = Math.round(it.usd * fx);
-      const tr = document.createElement('tr');
-      if (it.sold) tr.classList.add('sold');
-
-      let resultHtml = '<span class="profit-na">—</span>';
-      if (it.sale !== null && it.sale !== '' && it.sale !== undefined) {
-        const saleNum = parseFloat(it.sale) || 0;
-        if (saleNum > 0) {
-          const diff = saleNum - costoArs;
-          const cls = diff >= 0 ? 'profit-pos' : 'profit-neg';
-          const sign = diff >= 0 ? '+' : '';
-          resultHtml = `<span class="profit-cell ${cls}">${sign}${fmt(diff)}</span>`;
-        }
-      }
-
-      const tcgQuery = encodeURIComponent(it.name + ' pokemon card japanese');
-      const tcgUrl = `https://www.tcgplayer.com/search/pokemon/product?q=${tcgQuery}`;
-
-      tr.innerHTML = `
-        <td class="chk-wrap"><input type="checkbox" ${it.sold ? 'checked' : ''} data-id="${it.id}" /></td>
-        <td class="item-name" title="${it.name}">${it.name}</td>
-        <td class="price-usd">$${it.usd}</td>
-        <td class="price-ars">${fmt(costoArs)}</td>
-        <td><input type="number" class="sale-input" value="${(it.sale !== null && it.sale !== undefined) ? it.sale : ''}" placeholder="0" data-id="${it.id}" step="500" /></td>
-        <td>${resultHtml}</td>
-        <td><button class="search-btn" onclick="window.open('${tcgUrl}','_blank')">TCGPlayer ↗</button></td>
-      `;
-      tbody.appendChild(tr);
-    });
-
-    // Events
-    tbody.querySelectorAll('input[type=checkbox]').forEach(chk => {
+    grid.querySelectorAll('input[type=checkbox]').forEach(chk => {
       chk.addEventListener('change', e => {
-        state[parseInt(e.target.dataset.id)].sold = e.target.checked;
-        scheduleSave();
-        render();
+        const idx = state.findIndex(x => x.id === parseInt(e.target.dataset.id));
+        if (idx !== -1) { state[idx].sold = e.target.checked; scheduleSave(); render(); }
       });
     });
-    tbody.querySelectorAll('input.sale-input').forEach(inp => {
+    grid.querySelectorAll('.card-sale-input').forEach(inp => {
       inp.addEventListener('input', e => {
-        const v = parseFloat(e.target.value);
-        state[parseInt(e.target.dataset.id)].sale = isNaN(v) ? null : v;
-        scheduleSave();
-        render();
+        const idx = state.findIndex(x => x.id === parseInt(e.target.dataset.id));
+        if (idx !== -1) {
+          const v = parseFloat(e.target.value);
+          state[idx].sale = isNaN(v) ? null : v;
+          scheduleSave(); render();
+        }
       });
     });
   }
 
-  document.getElementById('fxRate').addEventListener('input', () => {
-    scheduleSave();
-    render();
+  // --- Admin ---
+  window.openAdmin = function() {
+    document.getElementById('totalInput').value = totalInvertido;
+    renderAdminList();
+    document.getElementById('adminModal').classList.add('open');
+  };
+  window.closeAdmin = function() {
+    document.getElementById('adminModal').classList.remove('open');
+    editingId = null;
+  };
+  window.saveTotal = function() {
+    const v = parseFloat(document.getElementById('totalInput').value);
+    if (!isNaN(v) && v > 0) { totalInvertido = v; scheduleSave(); render(); }
+  };
+  window.addItem = function() {
+    const name = document.getElementById('newName').value.trim();
+    const usd  = parseFloat(document.getElementById('newUsd').value);
+    const sale = parseFloat(document.getElementById('newSale').value) || null;
+    if (!name || isNaN(usd)) { alert('Nombre y costo USD son obligatorios.'); return; }
+    state.push({ id: nextId++, name, usd, sale, sold: false });
+    document.getElementById('newName').value = '';
+    document.getElementById('newUsd').value  = '';
+    document.getElementById('newSale').value = '';
+    scheduleSave(); renderAdminList(); render();
+  };
+  window.deleteItem = function(id) {
+    if (!confirm('¿Borrar este ítem?')) return;
+    state = state.filter(x => x.id !== id);
+    scheduleSave(); renderAdminList(); render();
+  };
+  window.startEdit  = function(id) { editingId = id; renderAdminList(); };
+  window.cancelEdit = function()   { editingId = null; renderAdminList(); };
+  window.saveEdit   = function(id) {
+    const idx = state.findIndex(x => x.id === id);
+    if (idx === -1) return;
+    const name = document.getElementById(`en-${id}`).value.trim();
+    const usd  = parseFloat(document.getElementById(`eu-${id}`).value);
+    const sale = parseFloat(document.getElementById(`es-${id}`).value) || null;
+    if (!name || isNaN(usd)) { alert('Nombre y USD son obligatorios.'); return; }
+    state[idx] = { ...state[idx], name, usd, sale };
+    delete imgCache[state[idx].name]; // clear cache so new image loads
+    editingId = null;
+    scheduleSave(); renderAdminList(); render();
+  };
+
+  function renderAdminList() {
+    const fx   = parseFloat(document.getElementById('fxRate').value) || 1420;
+    const list = document.getElementById('adminList');
+    list.innerHTML = '';
+    state.forEach(it => {
+      const div = document.createElement('div');
+      if (editingId === it.id) {
+        div.className = 'admin-edit-row';
+        div.innerHTML = `
+          <div class="form-group">
+            <span class="form-label">Nombre</span>
+            <input class="form-input" id="en-${it.id}" type="text" value="${it.name}" />
+          </div>
+          <div class="edit-row">
+            <div class="form-group">
+              <span class="form-label">Costo USD</span>
+              <input class="form-input" id="eu-${it.id}" type="number" value="${it.usd}" step="0.5" />
+            </div>
+            <div class="form-group">
+              <span class="form-label">Venta ARS</span>
+              <input class="form-input" id="es-${it.id}" type="number" value="${it.sale || ''}" step="500" placeholder="Opcional" />
+            </div>
+          </div>
+          <div style="display:flex;gap:8px;">
+            <button class="btn-save-edit" onclick="saveEdit(${it.id})">GUARDAR</button>
+            <button class="btn-cancel-edit" onclick="cancelEdit()">CANCELAR</button>
+          </div>`;
+      } else {
+        div.className = 'admin-item';
+        div.innerHTML = `
+          <div class="admin-item-info">
+            <div class="admin-item-name">${it.name}</div>
+            <div class="admin-item-meta">$${it.usd} USD · ${fmt(it.usd * fx)} · ${it.sale ? fmt(it.sale) : 'Sin precio venta'} ${it.sold ? '· ✓ VENDIDA' : ''}</div>
+          </div>
+          <div class="admin-item-actions">
+            <button class="btn-edit" onclick="startEdit(${it.id})">EDITAR</button>
+            <button class="btn-del"  onclick="deleteItem(${it.id})">BORRAR</button>
+          </div>`;
+      }
+      list.appendChild(div);
+    });
+  }
+
+  document.getElementById('fxRate').addEventListener('input', () => { scheduleSave(); render(); });
+  document.getElementById('adminModal').addEventListener('click', e => {
+    if (e.target === document.getElementById('adminModal')) closeAdmin();
   });
 
   loadState();
