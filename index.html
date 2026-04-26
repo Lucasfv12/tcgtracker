@@ -8,244 +8,243 @@
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    --poke-yellow: #FFD700;
-    --poke-blue: #2A75BB;
-    --poke-red: #CC0000;
-    --poke-dark: #0D0D0D;
-    --poke-surface: #141414;
-    --poke-card: #1A1A1A;
-    --poke-border: #2A2A2A;
-    --poke-muted: #555;
-    --poke-text: #E8E8E8;
-    --poke-subtext: #888;
-    --font-mono: 'Space Mono', monospace;
-    --font-main: 'Rajdhani', sans-serif;
+    --yellow: #FFD700;
+    --blue: #2A75BB;
+    --red: #CC0000;
+    --dark: #0D0D0D;
+    --surface: #141414;
+    --card: #1A1A1A;
+    --border: #2A2A2A;
+    --muted: #555;
+    --text: #E8E8E8;
+    --sub: #888;
+    --mono: 'Space Mono', monospace;
+    --main: 'Rajdhani', sans-serif;
   }
-  body { background: var(--poke-dark); color: var(--poke-text); font-family: var(--font-main); font-size: 15px; line-height: 1.5; min-height: 100vh; }
+  body { background: var(--dark); color: var(--text); font-family: var(--main); font-size: 15px; min-height: 100vh; }
 
-  #syncStatus {
-    position: fixed; top: 10px; right: 14px;
-    font-family: var(--font-mono); font-size: 10px; letter-spacing: 1px;
-    padding: 4px 10px; border-radius: 4px; z-index: 999; transition: all 0.3s;
+  /* SYNC */
+  #sync {
+    position: fixed; top: 10px; right: 14px; z-index: 999;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 1px;
+    padding: 4px 10px; border-radius: 4px; transition: all 0.3s;
   }
-  #syncStatus.syncing { background: rgba(42,117,187,0.15); color: #60a5fa; border: 1px solid rgba(42,117,187,0.3); }
-  #syncStatus.saved   { background: rgba(34,197,94,0.1);  color: #4ade80; border: 1px solid rgba(34,197,94,0.25); }
-  #syncStatus.error   { background: rgba(204,0,0,0.1);    color: #f87171; border: 1px solid rgba(204,0,0,0.25); }
-  #syncStatus.loading { background: rgba(255,215,0,0.08); color: var(--poke-yellow); border: 1px solid rgba(255,215,0,0.2); }
+  #sync.loading { background: rgba(255,215,0,0.08); color: var(--yellow); border: 1px solid rgba(255,215,0,0.2); }
+  #sync.syncing { background: rgba(42,117,187,0.15); color: #60a5fa; border: 1px solid rgba(42,117,187,0.3); }
+  #sync.saved   { background: rgba(34,197,94,0.1);  color: #4ade80; border: 1px solid rgba(34,197,94,0.25); }
+  #sync.error   { background: rgba(204,0,0,0.1);    color: #f87171; border: 1px solid rgba(204,0,0,0.25); }
 
+  /* HEADER */
   .header {
-    background: var(--poke-surface); border-bottom: 1px solid var(--poke-border);
-    padding: 16px 20px 12px; display: flex; align-items: center;
+    background: var(--surface); border-bottom: 1px solid var(--border);
+    padding: 14px 20px; display: flex; align-items: center;
     justify-content: space-between; gap: 12px; flex-wrap: wrap;
   }
   .header-left { display: flex; align-items: center; gap: 10px; }
   .pokeball {
-    width: 28px; height: 28px; border-radius: 50%;
-    background: linear-gradient(180deg, var(--poke-red) 50%, white 50%);
-    border: 2px solid #333; position: relative; flex-shrink: 0;
+    width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0;
+    background: linear-gradient(180deg, var(--red) 50%, white 50%);
+    border: 2px solid #333; position: relative;
   }
   .pokeball::after {
     content: ''; position: absolute; top: 50%; left: 50%;
-    transform: translate(-50%,-50%); width: 8px; height: 8px;
+    transform: translate(-50%,-50%); width: 7px; height: 7px;
     background: white; border-radius: 50%; border: 2px solid #333;
   }
-  .header h1 { font-size: 18px; font-weight: 700; letter-spacing: 2px; color: var(--poke-yellow); text-transform: uppercase; }
-  .header h1 span { color: var(--poke-text); }
+  .header h1 { font-size: 17px; font-weight: 700; letter-spacing: 2px; color: var(--yellow); text-transform: uppercase; }
+  .header h1 span { color: var(--text); }
   .header-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 
-  .fx-control {
-    display: flex; align-items: center; gap: 8px;
-    background: var(--poke-card); border: 1px solid var(--poke-border); border-radius: 6px; padding: 6px 10px;
+  .fx-wrap {
+    display: flex; align-items: center; gap: 7px;
+    background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 5px 10px;
   }
-  .fx-control label { font-size: 12px; color: var(--poke-subtext); letter-spacing: 1px; white-space: nowrap; }
-  .fx-control input[type=number] {
-    background: transparent; border: none; color: var(--poke-yellow);
-    font-family: var(--font-mono); font-size: 13px; font-weight: 700;
-    width: 70px; text-align: right; outline: none;
+  .fx-wrap label { font-size: 11px; color: var(--sub); letter-spacing: 1px; white-space: nowrap; }
+  .fx-wrap input {
+    background: transparent; border: none; color: var(--yellow);
+    font-family: var(--mono); font-size: 13px; font-weight: 700;
+    width: 68px; text-align: right; outline: none;
   }
-  .fx-control input[type=number]::-webkit-inner-spin-button { display: none; }
+  .fx-wrap input::-webkit-inner-spin-button { display: none; }
 
   .btn-admin {
-    background: transparent; border: 1px solid var(--poke-yellow); border-radius: 6px;
-    color: var(--poke-yellow); font-family: var(--font-mono); font-size: 11px;
-    padding: 6px 12px; cursor: pointer; letter-spacing: 1px; transition: all 0.15s; white-space: nowrap;
+    background: transparent; border: 1px solid var(--yellow); border-radius: 6px;
+    color: var(--yellow); font-family: var(--mono); font-size: 11px;
+    padding: 5px 12px; cursor: pointer; letter-spacing: 1px; transition: all 0.15s; white-space: nowrap;
   }
-  .btn-admin:hover { background: var(--poke-yellow); color: #000; }
+  .btn-admin:hover { background: var(--yellow); color: #000; }
 
+  /* METRICS */
   .metrics {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
     gap: 10px; padding: 14px 20px;
   }
-  .metric { background: var(--poke-card); border: 1px solid var(--poke-border); border-radius: 8px; padding: 12px 14px; }
-  .metric.accent-yellow { border-left: 3px solid var(--poke-yellow); }
-  .metric.accent-blue   { border-left: 3px solid var(--poke-blue); }
-  .metric.accent-red    { border-left: 3px solid var(--poke-red); }
-  .metric.accent-green  { border-left: 3px solid #22c55e; }
-  .metric-label { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--poke-subtext); margin-bottom: 4px; }
-  .metric-value { font-family: var(--font-mono); font-size: 16px; font-weight: 700; line-height: 1.2; }
-  .metric-value.yellow { color: var(--poke-yellow); }
-  .metric-value.blue   { color: #60a5fa; }
-  .metric-value.red    { color: #f87171; }
-  .metric-value.green  { color: #4ade80; }
+  .metric { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 11px 13px; }
+  .metric.y { border-left: 3px solid var(--yellow); }
+  .metric.b { border-left: 3px solid var(--blue); }
+  .metric.r { border-left: 3px solid var(--red); }
+  .metric.g { border-left: 3px solid #22c55e; }
+  .metric-label { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--sub); margin-bottom: 3px; }
+  .metric-val { font-family: var(--mono); font-size: 15px; font-weight: 700; }
+  .metric-val.y { color: var(--yellow); }
+  .metric-val.b { color: #60a5fa; }
+  .metric-val.r { color: #f87171; }
+  .metric-val.g { color: #4ade80; }
 
-  .progress-section { padding: 0 20px 14px; }
-  .progress-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 12px; letter-spacing: 1px; color: var(--poke-subtext); text-transform: uppercase; }
-  .progress-pct { font-family: var(--font-mono); font-weight: 700; color: var(--poke-yellow); font-size: 14px; }
-  .progress-bar-bg { height: 10px; background: var(--poke-border); border-radius: 5px; overflow: hidden; }
-  .progress-bar-fill { height: 100%; border-radius: 5px; background: linear-gradient(90deg, var(--poke-blue), var(--poke-yellow)); transition: width 0.4s ease; }
-  .progress-bar-fill.done { background: linear-gradient(90deg, #22c55e, #4ade80); }
+  /* PROGRESS */
+  .prog { padding: 0 20px 12px; }
+  .prog-hd { display: flex; justify-content: space-between; align-items: center; margin-bottom: 7px; font-size: 11px; letter-spacing: 1px; color: var(--sub); text-transform: uppercase; }
+  .prog-pct { font-family: var(--mono); font-weight: 700; color: var(--yellow); font-size: 13px; }
+  .prog-bg { height: 9px; background: var(--border); border-radius: 5px; overflow: hidden; }
+  .prog-fill { height: 100%; border-radius: 5px; background: linear-gradient(90deg, var(--blue), var(--yellow)); transition: width 0.4s; }
+  .prog-fill.done { background: linear-gradient(90deg, #22c55e, #4ade80); }
 
-  .net-banner {
-    margin: 0 20px 14px; background: rgba(34,197,94,0.08);
+  /* NET BANNER */
+  .net {
+    margin: 0 20px 12px; background: rgba(34,197,94,0.08);
     border: 1px solid rgba(34,197,94,0.25); border-radius: 8px;
-    padding: 10px 16px; display: none; align-items: center; justify-content: space-between;
+    padding: 9px 16px; display: none; align-items: center; justify-content: space-between;
   }
-  .net-banner.visible { display: flex; }
-  .net-label { color: #4ade80; letter-spacing: 1px; text-transform: uppercase; font-size: 11px; }
-  .net-value { font-family: var(--font-mono); font-size: 17px; font-weight: 700; color: #4ade80; }
+  .net.on { display: flex; }
+  .net-lbl { color: #4ade80; letter-spacing: 1px; text-transform: uppercase; font-size: 11px; }
+  .net-val { font-family: var(--mono); font-size: 16px; font-weight: 700; color: #4ade80; }
 
-  .divider { height: 1px; background: var(--poke-border); margin: 0 20px 14px; }
+  .divider { height: 1px; background: var(--border); margin: 0 20px 12px; }
 
-  .cards-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 14px; padding: 0 20px 32px;
+  /* TABLE */
+  .tbl-wrap { padding: 0 20px 32px; overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead th {
+    text-align: left; padding: 7px 10px;
+    font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--sub); border-bottom: 1px solid var(--border);
+    font-family: var(--mono); font-weight: 400; white-space: nowrap;
   }
-  .card-item {
-    background: var(--poke-card); border: 1px solid var(--poke-border);
-    border-radius: 10px; overflow: hidden; transition: border-color 0.2s, transform 0.15s; position: relative;
-  }
-  .card-item:hover { border-color: var(--poke-yellow); transform: translateY(-2px); }
-  .card-item.sold { opacity: 0.4; }
-  .card-item.sold::after {
-    content: 'VENDIDA'; position: absolute; top: 8px; left: 0; right: 0;
-    text-align: center; background: rgba(204,0,0,0.85); color: white;
-    font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; padding: 3px 0;
-  }
-  .card-img-wrap {
-    width: 100%; aspect-ratio: 3/4; background: #111;
-    display: flex; align-items: center; justify-content: center; overflow: hidden;
-  }
-  .card-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
-  .card-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 16px; text-align: center; }
-  .placeholder-ball { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(180deg, var(--poke-red) 50%, white 50%); border: 2px solid #444; opacity: 0.4; }
-  .placeholder-text { font-size: 11px; color: var(--poke-muted); }
+  tbody tr { border-bottom: 1px solid var(--border); transition: background 0.1s; }
+  tbody tr:hover { background: rgba(255,255,255,0.02); }
+  tbody tr.sold td { opacity: 0.4; text-decoration: line-through; text-decoration-color: var(--muted); }
+  tbody td { padding: 8px 10px; vertical-align: middle; }
 
-  .card-body { padding: 10px; }
-  .card-name { font-size: 12px; font-weight: 600; color: var(--poke-text); margin-bottom: 6px; line-height: 1.3; }
-  .card-prices { display: flex; flex-direction: column; gap: 3px; margin-bottom: 8px; }
-  .card-price-row { display: flex; justify-content: space-between; align-items: center; }
-  .card-price-label { font-size: 10px; color: var(--poke-subtext); }
-  .card-price-val.usd { font-family: var(--font-mono); font-size: 11px; color: var(--poke-subtext); }
-  .card-price-val.ars { font-family: var(--font-mono); font-size: 11px; color: #60a5fa; }
-  .card-sale-input {
-    width: 100%; background: transparent; border: 1px solid var(--poke-border);
-    border-radius: 4px; color: var(--poke-yellow); font-family: var(--font-mono);
-    font-size: 11px; padding: 4px 8px; text-align: right; outline: none;
-    margin-bottom: 8px; transition: border-color 0.2s;
+  /* thumbnail cell */
+  .td-img { width: 44px; padding: 5px 8px 5px 10px !important; }
+  .thumb-wrap {
+    width: 36px; height: 50px; border-radius: 4px; overflow: hidden;
+    background: #111; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
   }
-  .card-sale-input:focus { border-color: var(--poke-yellow); }
-  .card-sale-input::-webkit-inner-spin-button { display: none; }
-  .card-result { font-family: var(--font-mono); font-size: 11px; text-align: right; margin-bottom: 8px; min-height: 16px; }
-  .profit-pos { color: #4ade80; }
-  .profit-neg { color: #f87171; }
-  .profit-na  { color: var(--poke-muted); }
-  .card-footer { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
-  .sold-label { display: flex; align-items: center; gap: 5px; cursor: pointer; font-size: 11px; color: var(--poke-subtext); }
-  .sold-label input[type=checkbox] { width: 14px; height: 14px; accent-color: var(--poke-yellow); cursor: pointer; }
-  .tcg-link {
-    font-family: var(--font-mono); font-size: 9px; color: var(--poke-blue);
-    border: 1px solid var(--poke-border); border-radius: 4px; padding: 2px 6px;
-    cursor: pointer; background: transparent; transition: all 0.15s; white-space: nowrap;
+  .thumb-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .thumb-ph {
+    width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
   }
-  .tcg-link:hover { background: var(--poke-blue); color: white; border-color: var(--poke-blue); }
+  .thumb-ph svg { opacity: 0.25; }
+
+  .td-name { min-width: 150px; }
+  .item-name { font-weight: 600; font-size: 13px; }
+
+  .td-num { white-space: nowrap; }
+  .p-usd { font-family: var(--mono); font-size: 12px; color: var(--sub); }
+  .p-ars { font-family: var(--mono); font-size: 12px; color: #60a5fa; }
+
+  .sale-inp {
+    background: transparent; border: 1px solid var(--border); border-radius: 4px;
+    color: var(--yellow); font-family: var(--mono); font-size: 12px;
+    width: 95px; padding: 3px 7px; text-align: right; outline: none; transition: border-color 0.2s;
+  }
+  .sale-inp:focus { border-color: var(--yellow); }
+  .sale-inp::-webkit-inner-spin-button { display: none; }
+
+  .res { font-family: var(--mono); font-size: 12px; }
+  .pos { color: #4ade80; }
+  .neg { color: #f87171; }
+  .na  { color: var(--muted); }
+
+  .chk-cell { width: 36px; text-align: center; }
+  input[type=checkbox] { width: 15px; height: 15px; accent-color: var(--yellow); cursor: pointer; }
+
+  .tcg-btn {
+    background: transparent; border: 1px solid var(--border); border-radius: 4px;
+    color: var(--blue); font-family: var(--mono); font-size: 9px;
+    padding: 3px 6px; cursor: pointer; white-space: nowrap; transition: all 0.15s;
+  }
+  .tcg-btn:hover { background: var(--blue); color: white; border-color: var(--blue); }
 
   /* MODAL */
-  .modal-overlay {
+  .overlay {
     position: fixed; inset: 0; background: rgba(0,0,0,0.8);
     align-items: center; justify-content: center; z-index: 1000; padding: 20px; display: none;
   }
-  .modal-overlay.open { display: flex; }
+  .overlay.open { display: flex; }
   .modal {
-    background: var(--poke-surface); border: 1px solid var(--poke-border);
-    border-radius: 12px; width: 100%; max-width: 560px; max-height: 85vh; overflow-y: auto;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; width: 100%; max-width: 540px; max-height: 88vh; overflow-y: auto;
   }
-  .modal-header {
+  .modal-hd {
     display: flex; align-items: center; justify-content: space-between;
-    padding: 16px 20px; border-bottom: 1px solid var(--poke-border);
-    position: sticky; top: 0; background: var(--poke-surface); z-index: 1;
+    padding: 14px 20px; border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; background: var(--surface); z-index: 1;
   }
-  .modal-header h2 { font-size: 15px; letter-spacing: 2px; text-transform: uppercase; color: var(--poke-yellow); }
-  .modal-close { background: transparent; border: none; color: var(--poke-subtext); font-size: 20px; cursor: pointer; padding: 0 4px; }
-  .modal-close:hover { color: var(--poke-text); }
-  .modal-body { padding: 20px; }
+  .modal-hd h2 { font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: var(--yellow); }
+  .modal-close { background: transparent; border: none; color: var(--sub); font-size: 20px; cursor: pointer; padding: 0 4px; line-height: 1; }
+  .modal-close:hover { color: var(--text); }
+  .modal-body { padding: 18px 20px; }
 
-  .form-section { margin-bottom: 24px; }
-  .form-section h3 { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--poke-subtext); margin-bottom: 12px; }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 10px; }
-  .form-group { display: flex; flex-direction: column; gap: 4px; }
-  .form-group.full { grid-column: 1 / -1; }
-  .form-label { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--poke-subtext); }
-  .form-input {
-    background: var(--poke-card); border: 1px solid var(--poke-border); border-radius: 6px;
-    color: var(--poke-text); font-family: var(--font-mono); font-size: 12px;
-    padding: 7px 10px; outline: none; transition: border-color 0.2s; width: 100%;
+  .msec { margin-bottom: 22px; }
+  .msec h3 { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--sub); margin-bottom: 10px; }
+  .mrow { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-bottom: 9px; }
+  .mgroup { display: flex; flex-direction: column; gap: 3px; }
+  .mgroup.full { grid-column: 1/-1; }
+  .mlabel { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--sub); }
+  .minput {
+    background: var(--card); border: 1px solid var(--border); border-radius: 5px;
+    color: var(--text); font-family: var(--mono); font-size: 12px;
+    padding: 6px 9px; outline: none; transition: border-color 0.2s; width: 100%;
   }
-  .form-input:focus { border-color: var(--poke-yellow); }
-  .form-input::-webkit-inner-spin-button { display: none; }
-  .btn-add {
-    width: 100%; background: var(--poke-yellow); border: none; border-radius: 6px;
-    color: #000; font-family: var(--font-mono); font-size: 12px; font-weight: 700;
-    padding: 10px; cursor: pointer; letter-spacing: 1px; transition: opacity 0.15s;
+  .minput:focus { border-color: var(--yellow); }
+  .minput::-webkit-inner-spin-button { display: none; }
+  .mbtn {
+    width: 100%; background: var(--yellow); border: none; border-radius: 5px;
+    color: #000; font-family: var(--mono); font-size: 12px; font-weight: 700;
+    padding: 9px; cursor: pointer; letter-spacing: 1px; transition: opacity 0.15s;
   }
-  .btn-add:hover { opacity: 0.85; }
+  .mbtn:hover { opacity: 0.85; }
+  .mbtn-sm { width: auto; padding: 8px 16px; }
 
-  .admin-list { display: flex; flex-direction: column; gap: 8px; }
-  .admin-item {
-    background: var(--poke-card); border: 1px solid var(--poke-border);
-    border-radius: 8px; padding: 10px 12px; display: flex; align-items: center; gap: 10px;
+  .alist { display: flex; flex-direction: column; gap: 7px; }
+  .aitem {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 7px; padding: 9px 11px; display: flex; align-items: center; gap: 9px;
   }
-  .admin-item-info { flex: 1; min-width: 0; }
-  .admin-item-name { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .admin-item-meta { font-family: var(--font-mono); font-size: 10px; color: var(--poke-subtext); }
-  .admin-item-actions { display: flex; gap: 6px; flex-shrink: 0; }
-  .btn-edit, .btn-del {
-    background: transparent; border-radius: 4px; font-family: var(--font-mono);
-    font-size: 10px; padding: 4px 8px; cursor: pointer; border: 1px solid; transition: all 0.15s;
+  .ainfo { flex: 1; min-width: 0; }
+  .aname { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .ameta { font-family: var(--mono); font-size: 10px; color: var(--sub); margin-top: 1px; }
+  .abtns { display: flex; gap: 5px; flex-shrink: 0; }
+  .bedit, .bdel {
+    background: transparent; border-radius: 4px; font-family: var(--mono);
+    font-size: 10px; padding: 3px 7px; cursor: pointer; border: 1px solid; transition: all 0.15s;
   }
-  .btn-edit { border-color: var(--poke-blue); color: var(--poke-blue); }
-  .btn-edit:hover { background: var(--poke-blue); color: white; }
-  .btn-del  { border-color: var(--poke-red); color: #f87171; }
-  .btn-del:hover  { background: var(--poke-red); color: white; }
-
-  .admin-edit-row {
-    background: var(--poke-card); border: 1px solid var(--poke-yellow);
-    border-radius: 8px; padding: 12px; display: flex; flex-direction: column; gap: 8px;
+  .bedit { border-color: var(--blue); color: var(--blue); }
+  .bedit:hover { background: var(--blue); color: white; }
+  .bdel  { border-color: var(--red);  color: #f87171; }
+  .bdel:hover  { background: var(--red);  color: white; }
+  .aedit {
+    background: var(--card); border: 1px solid var(--yellow);
+    border-radius: 7px; padding: 11px; display: flex; flex-direction: column; gap: 8px;
   }
-  .edit-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .btn-save-edit {
-    background: var(--poke-yellow); border: none; border-radius: 4px;
-    color: #000; font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+  .erow { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .esave {
+    background: var(--yellow); border: none; border-radius: 4px;
+    color: #000; font-family: var(--mono); font-size: 11px; font-weight: 700;
     padding: 6px; cursor: pointer; flex: 1;
   }
-  .btn-cancel-edit {
-    background: transparent; border: 1px solid var(--poke-border); border-radius: 4px;
-    color: var(--poke-subtext); font-family: var(--font-mono); font-size: 11px;
+  .ecancel {
+    background: transparent; border: 1px solid var(--border); border-radius: 4px;
+    color: var(--sub); font-family: var(--mono); font-size: 11px;
     padding: 6px; cursor: pointer; flex: 1;
-  }
-
-  @media (max-width: 600px) {
-    .cards-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; padding: 0 12px 24px; }
-    .metrics { padding: 10px 12px; }
-    .progress-section { padding: 0 12px 12px; }
-    .form-row { grid-template-columns: 1fr 1fr; }
-    .header h1 { font-size: 14px; }
   }
 </style>
 </head>
 <body>
 
-<div id="syncStatus" class="loading">CARGANDO...</div>
+<div id="sync" class="loading">CARGANDO...</div>
 
 <div class="header">
   <div class="header-left">
@@ -253,10 +252,10 @@
     <h1>Pokémon <span>TCG Tracker</span></h1>
   </div>
   <div class="header-right">
-    <div class="fx-control">
+    <div class="fx-wrap">
       <label>1 USD =</label>
       <input type="number" id="fxRate" value="1420" step="10" min="100" />
-      <label style="color: var(--poke-text); font-size: 12px;">ARS</label>
+      <label style="color:var(--text);font-size:12px;">ARS</label>
     </div>
     <button class="btn-admin" onclick="openAdmin()">⚙ ADMIN</button>
   </div>
@@ -264,63 +263,78 @@
 
 <div class="metrics" id="metrics"></div>
 
-<div class="progress-section">
-  <div class="progress-header">
+<div class="prog">
+  <div class="prog-hd">
     <span>Progreso al break-even</span>
-    <span class="progress-pct" id="pctLabel">0%</span>
+    <span class="prog-pct" id="pct">0%</span>
   </div>
-  <div class="progress-bar-bg">
-    <div class="progress-bar-fill" id="progressBar" style="width:0%"></div>
-  </div>
+  <div class="prog-bg"><div class="prog-fill" id="bar" style="width:0%"></div></div>
 </div>
 
-<div class="net-banner" id="netBanner">
-  <span class="net-label">🏆 Break-even superado — Ganancia neta</span>
-  <span class="net-value" id="netValue">$0</span>
+<div class="net" id="netBanner">
+  <span class="net-lbl">🏆 Break-even superado — Ganancia neta</span>
+  <span class="net-val" id="netVal">$0</span>
 </div>
 
 <div class="divider"></div>
-<div class="cards-grid" id="cardsGrid"></div>
+
+<div class="tbl-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th class="td-img"></th>
+        <th>Ítem</th>
+        <th>Costo USD</th>
+        <th>Costo ARS</th>
+        <th>Precio Venta</th>
+        <th>Resultado</th>
+        <th class="chk-cell">Vend.</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+</div>
 
 <!-- Modal Admin -->
-<div class="modal-overlay" id="adminModal">
+<div class="overlay" id="modal">
   <div class="modal">
-    <div class="modal-header">
+    <div class="modal-hd">
       <h2>⚙ Panel de Admin</h2>
       <button class="modal-close" onclick="closeAdmin()">✕</button>
     </div>
     <div class="modal-body">
 
-      <div class="form-section">
+      <div class="msec">
         <h3>Inversión total</h3>
-        <div style="display:flex; gap:8px; align-items:center;">
-          <input class="form-input" type="number" id="totalInput" step="1000" placeholder="273610" style="flex:1;" />
-          <button class="btn-add" style="width:auto; padding:9px 16px;" onclick="saveTotal()">GUARDAR</button>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <input class="minput" type="number" id="totalInp" step="1000" style="flex:1;" />
+          <button class="mbtn mbtn-sm" onclick="saveTotal()">GUARDAR</button>
         </div>
       </div>
 
-      <div class="form-section">
+      <div class="msec">
         <h3>Agregar ítem</h3>
-        <div class="form-row">
-          <div class="form-group full">
-            <span class="form-label">Nombre</span>
-            <input class="form-input" type="text" id="newName" placeholder="Ej: Charizard ex SAR" />
+        <div class="mrow">
+          <div class="mgroup full">
+            <span class="mlabel">Nombre</span>
+            <input class="minput" type="text" id="nName" placeholder="Ej: Charizard ex SAR" />
           </div>
-          <div class="form-group">
-            <span class="form-label">Costo USD</span>
-            <input class="form-input" type="number" id="newUsd" placeholder="0" step="0.5" />
+          <div class="mgroup">
+            <span class="mlabel">Costo USD</span>
+            <input class="minput" type="number" id="nUsd" placeholder="0" step="0.5" />
           </div>
-          <div class="form-group">
-            <span class="form-label">Venta ARS</span>
-            <input class="form-input" type="number" id="newSale" placeholder="Opcional" step="500" />
+          <div class="mgroup">
+            <span class="mlabel">Venta ARS (opcional)</span>
+            <input class="minput" type="number" id="nSale" placeholder="0" step="500" />
           </div>
         </div>
-        <button class="btn-add" onclick="addItem()">+ AGREGAR ÍTEM</button>
+        <button class="mbtn" onclick="addItem()">+ AGREGAR</button>
       </div>
 
-      <div class="form-section">
+      <div class="msec">
         <h3>Ítems actuales</h3>
-        <div class="admin-list" id="adminList"></div>
+        <div class="alist" id="alist"></div>
       </div>
     </div>
   </div>
@@ -330,7 +344,7 @@
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-  const firebaseConfig = {
+  const FB = {
     apiKey: "AIzaSyARc8YGT3ucKMp5qQvxFDN4kqXCeI9Ez9c",
     authDomain: "tcg-tracker-f5efc.firebaseapp.com",
     projectId: "tcg-tracker-f5efc",
@@ -338,293 +352,268 @@
     messagingSenderId: "412361471619",
     appId: "1:412361471619:web:1d19ace31ad59e47120db6"
   };
+  const db     = getFirestore(initializeApp(FB));
+  const DOCREF = doc(db, "tracker", "estado");
 
-  const app = initializeApp(firebaseConfig);
-  const db  = getFirestore(app);
-  const DOC_REF = doc(db, "tracker", "estado");
-
-  let totalInvertido = 273610;
-  let saveTimer = null;
-  let editingId = null;
-  let nextId = 14;
+  let inv = 273610, nextId = 14, saveTimer = null, editId = null;
   const imgCache = {};
 
-  const ITEMS_DEFAULT = [
-    { id:0,  name: "Pack Charm Clefairy",           usd: 14, sale: 20000, sold: false },
-    { id:1,  name: "Pack Charm Gastly/Gengar",       usd: 14, sale: 35000, sold: false },
-    { id:2,  name: "Pack Charm Eeveelutions",        usd: 17, sale: 65000, sold: false },
-    { id:3,  name: "Poliwhirl AR 151",              usd: 9,  sale: null,  sold: false },
-    { id:4,  name: "Ivysaur AR 151",               usd: 7,  sale: null,  sold: false },
-    { id:5,  name: "Lapras AR",                    usd: 10, sale: null,  sold: false },
-    { id:6,  name: "Pikachu Promo Set x2",         usd: 8,  sale: null,  sold: false },
-    { id:7,  name: "Pikachu Promo 001/SV-P",       usd: 10, sale: null,  sold: false },
-    { id:8,  name: "Pack Rocket Meowth/Persian AR", usd: 17, sale: null,  sold: false },
-    { id:9,  name: "Cleffa AR",                    usd: 6,  sale: null,  sold: false },
-    { id:10, name: "Nidoking/Caterpie/Tangela AR", usd: 10, sale: null,  sold: false },
-    { id:11, name: "Horsea AR",                    usd: 5,  sale: null,  sold: false },
-    { id:12, name: "Persian Vintage",              usd: 4,  sale: null,  sold: false },
-    { id:13, name: "Wobbuffet/Kangaskhan",         usd: 11, sale: null,  sold: false },
+  const DEFAULT = [
+    { id:0,  name:"Pack Charm Clefairy",          usd:14, sale:20000, sold:false },
+    { id:1,  name:"Pack Charm Gastly/Gengar",      usd:14, sale:35000, sold:false },
+    { id:2,  name:"Pack Charm Eeveelutions",       usd:17, sale:65000, sold:false },
+    { id:3,  name:"Poliwhirl AR 151",             usd:9,  sale:null,  sold:false },
+    { id:4,  name:"Ivysaur AR 151",              usd:7,  sale:null,  sold:false },
+    { id:5,  name:"Lapras AR",                   usd:10, sale:null,  sold:false },
+    { id:6,  name:"Pikachu Promo Set x2",        usd:8,  sale:null,  sold:false },
+    { id:7,  name:"Pikachu Promo 001/SV-P",      usd:10, sale:null,  sold:false },
+    { id:8,  name:"Pack Rocket Meowth/Persian",  usd:17, sale:null,  sold:false },
+    { id:9,  name:"Cleffa AR",                   usd:6,  sale:null,  sold:false },
+    { id:10, name:"Nidoking/Caterpie/Tangela AR",usd:10, sale:null,  sold:false },
+    { id:11, name:"Horsea AR",                   usd:5,  sale:null,  sold:false },
+    { id:12, name:"Persian Vintage",             usd:4,  sale:null,  sold:false },
+    { id:13, name:"Wobbuffet/Kangaskhan",        usd:11, sale:null,  sold:false },
   ];
+  let state = DEFAULT.map(x => ({...x}));
 
-  let state = ITEMS_DEFAULT.map(it => ({ ...it }));
+  const syncEl = document.getElementById('sync');
+  const ss = (m,t) => { syncEl.className = m; syncEl.textContent = t; };
+  const fmt = n => '$' + Math.round(n).toLocaleString('es-AR');
+  const fx  = () => parseFloat(document.getElementById('fxRate').value) || 1420;
 
-  const syncEl = document.getElementById('syncStatus');
-  function setSync(mode, text) { syncEl.className = mode; syncEl.textContent = text; }
-
-  // Extract first pokemon name for API query
-  function extractPokemonName(name) {
-    return name
-      .replace(/pack charm/i, '')
-      .replace(/ar\s*\d*/i, '')
-      .replace(/promo.*/i, '')
-      .replace(/vintage/i, '')
-      .replace(/set x\d/i, '')
-      .replace(/\d{3}\/sv-p/i, '')
-      .replace(/\//g, ' ')
-      .trim()
-      .split(/\s+/)[0];
+  // Pokemon name extraction for API
+  function pokeName(name) {
+    const cleaned = name
+      .replace(/pack charm\s*/i,'')
+      .replace(/\bAR\b.*$/i,'')
+      .replace(/\bpromo\b.*/i,'')
+      .replace(/vintage/i,'')
+      .replace(/set x\d+/i,'')
+      .replace(/\d{3}\/sv-p/i,'')
+      .replace(/[/,]/g,' ')
+      .trim();
+    // take first word that's at least 3 chars
+    const words = cleaned.split(/\s+/).filter(w => w.length >= 3);
+    return words[0] || '';
   }
 
-  async function fetchCardImage(name) {
-    if (imgCache[name] !== undefined) return imgCache[name];
-    const q = extractPokemonName(name);
-    if (!q || q.length < 3) { imgCache[name] = null; return null; }
+  async function getImg(name) {
+    if (name in imgCache) return imgCache[name];
+    imgCache[name] = null; // prevent double fetch
+    const q = pokeName(name);
+    if (!q) return null;
     try {
-      const r = await fetch(`https://api.pokemontcg.io/v2/cards?q=name:"${encodeURIComponent(q)}"&pageSize=1&select=images,name`);
+      const r = await fetch(`https://api.pokemontcg.io/v2/cards?q=name:"${encodeURIComponent(q)}"&pageSize=1&select=images`);
+      if (!r.ok) return null;
       const d = await r.json();
-      const img = d.data?.[0]?.images?.small || null;
-      imgCache[name] = img;
-      return img;
-    } catch {
-      imgCache[name] = null;
-      return null;
-    }
+      const url = d?.data?.[0]?.images?.small ?? null;
+      imgCache[name] = url;
+      return url;
+    } catch { return null; }
   }
-
-  function fmt(n) { return '$' + Math.round(n).toLocaleString('es-AR'); }
 
   function scheduleSave() {
-    setSync('syncing', '↑ GUARDANDO...');
+    ss('syncing','↑ GUARDANDO...');
     clearTimeout(saveTimer);
     saveTimer = setTimeout(async () => {
       try {
-        await setDoc(DOC_REF, {
-          fxRate: parseFloat(document.getElementById('fxRate').value) || 1420,
-          totalInvertido,
-          items: state,
-          nextId,
-          updatedAt: new Date().toISOString()
-        });
-        setSync('saved', '● SINCRONIZADO');
-      } catch(e) {
-        setSync('error', '✕ ERROR AL GUARDAR');
-      }
+        await setDoc(DOCREF, { fxRate: fx(), inv, state, nextId, ts: new Date().toISOString() });
+        ss('saved','● SINCRONIZADO');
+      } catch { ss('error','✕ ERROR'); }
     }, 1200);
   }
 
-  async function loadState() {
-    setSync('loading', 'CARGANDO...');
+  async function load() {
+    ss('loading','CARGANDO...');
     try {
-      const snap = await getDoc(DOC_REF);
+      const snap = await getDoc(DOCREF);
       if (snap.exists()) {
         const d = snap.data();
-        if (d.fxRate) document.getElementById('fxRate').value = d.fxRate;
-        if (d.totalInvertido) totalInvertido = d.totalInvertido;
-        if (d.items && d.items.length) state = d.items;
-        if (d.nextId) nextId = d.nextId;
+        if (d.fxRate)  document.getElementById('fxRate').value = d.fxRate;
+        if (d.inv)     inv = d.inv;
+        if (d.state?.length) state = d.state;
+        if (d.nextId)  nextId = d.nextId;
       }
-      setSync('saved', '● SINCRONIZADO');
-    } catch(e) {
-      setSync('error', '✕ ERROR DE CONEXIÓN');
-    }
+      ss('saved','● SINCRONIZADO');
+    } catch { ss('error','✕ ERROR DE CONEXIÓN'); }
     render();
   }
 
-  async function render() {
-    const fx = parseFloat(document.getElementById('fxRate').value) || 1420;
-    let totalRec = 0;
-    state.forEach(it => { if (it.sold && it.sale) totalRec += parseFloat(it.sale) || 0; });
-
-    const faltante = Math.max(0, totalInvertido - totalRec);
-    const pct      = Math.min(100, Math.round((totalRec / totalInvertido) * 100));
-    const superado  = totalRec > totalInvertido;
-    const ganancia  = superado ? totalRec - totalInvertido : 0;
+  function render() {
+    const rate = fx();
+    let rec = 0;
+    state.forEach(it => { if (it.sold && it.sale) rec += parseFloat(it.sale)||0; });
+    const falta   = Math.max(0, inv - rec);
+    const pct     = Math.min(100, Math.round(rec/inv*100));
+    const over    = rec > inv;
+    const ganancia = over ? rec - inv : 0;
 
     document.getElementById('metrics').innerHTML = `
-      <div class="metric accent-yellow"><div class="metric-label">Inversión Total</div><div class="metric-value yellow">${fmt(totalInvertido)}</div></div>
-      <div class="metric accent-blue"><div class="metric-label">Recuperado</div><div class="metric-value blue">${fmt(totalRec)}</div></div>
-      <div class="metric accent-red"><div class="metric-label">Falta para B.E.</div><div class="metric-value red">${fmt(faltante)}</div></div>
-      <div class="metric accent-green"><div class="metric-label">Ganancia Neta</div><div class="metric-value green">${fmt(ganancia)}</div></div>
-    `;
+      <div class="metric y"><div class="metric-label">Inversión Total</div><div class="metric-val y">${fmt(inv)}</div></div>
+      <div class="metric b"><div class="metric-label">Recuperado</div><div class="metric-val b">${fmt(rec)}</div></div>
+      <div class="metric r"><div class="metric-label">Falta para B.E.</div><div class="metric-val r">${fmt(falta)}</div></div>
+      <div class="metric g"><div class="metric-label">Ganancia Neta</div><div class="metric-val g">${fmt(ganancia)}</div></div>`;
 
-    document.getElementById('pctLabel').textContent = pct + '%';
-    const bar = document.getElementById('progressBar');
+    document.getElementById('pct').textContent = pct + '%';
+    const bar = document.getElementById('bar');
     bar.style.width = pct + '%';
-    bar.className = 'progress-bar-fill' + (superado ? ' done' : '');
+    bar.className = 'prog-fill' + (over ? ' done' : '');
 
-    const banner = document.getElementById('netBanner');
-    if (superado) { banner.classList.add('visible'); document.getElementById('netValue').textContent = fmt(ganancia); }
-    else banner.classList.remove('visible');
+    const nb = document.getElementById('netBanner');
+    if (over) { nb.classList.add('on'); document.getElementById('netVal').textContent = fmt(ganancia); }
+    else nb.classList.remove('on');
 
-    const grid = document.getElementById('cardsGrid');
-    grid.innerHTML = '';
+    const tbody = document.getElementById('tbody');
+    tbody.innerHTML = '';
 
-    for (const it of state) {
-      const costoArs = Math.round(it.usd * fx);
-      const saleNum  = it.sale ? parseFloat(it.sale) : 0;
-      const diff     = saleNum > 0 ? saleNum - costoArs : null;
-      const diffHtml = diff === null
-        ? `<span class="profit-na">sin precio</span>`
-        : `<span class="${diff >= 0 ? 'profit-pos' : 'profit-neg'}">${diff >= 0 ? '+' : ''}${fmt(diff)}</span>`;
-
+    state.forEach(it => {
+      const cArs  = Math.round(it.usd * rate);
+      const sNum  = it.sale ? parseFloat(it.sale) : 0;
+      const diff  = sNum > 0 ? sNum - cArs : null;
+      const resHtml = diff === null
+        ? `<span class="na">—</span>`
+        : `<span class="${diff>=0?'pos':'neg'}">${diff>=0?'+':''}${fmt(diff)}</span>`;
       const tcgUrl = `https://www.tcgplayer.com/search/pokemon/product?q=${encodeURIComponent(it.name)}`;
-      const card = document.createElement('div');
-      card.className = 'card-item' + (it.sold ? ' sold' : '');
 
-      const imgWrap = document.createElement('div');
-      imgWrap.className = 'card-img-wrap';
-      imgWrap.innerHTML = `<div class="card-placeholder"><div class="placeholder-ball"></div><span class="placeholder-text">${it.name}</span></div>`;
+      const tr = document.createElement('tr');
+      if (it.sold) tr.classList.add('sold');
 
-      const body = document.createElement('div');
-      body.className = 'card-body';
-      body.innerHTML = `
-        <div class="card-name">${it.name}</div>
-        <div class="card-prices">
-          <div class="card-price-row"><span class="card-price-label">Costo</span><span class="card-price-val usd">$${it.usd} USD</span></div>
-          <div class="card-price-row"><span class="card-price-label">≈ ARS</span><span class="card-price-val ars">${fmt(costoArs)}</span></div>
-        </div>
-        <input type="number" class="card-sale-input" placeholder="Precio venta ARS"
-          value="${(it.sale !== null && it.sale !== undefined) ? it.sale : ''}" step="500" data-id="${it.id}" />
-        <div class="card-result">${diffHtml}</div>
-        <div class="card-footer">
-          <label class="sold-label">
-            <input type="checkbox" ${it.sold ? 'checked' : ''} data-id="${it.id}" /> VENDIDA
-          </label>
-          <button class="tcg-link" onclick="window.open('${tcgUrl}','_blank')">TCG ↗</button>
+      // thumb cell — placeholder svg first
+      const thumbTd = document.createElement('td');
+      thumbTd.className = 'td-img';
+      thumbTd.innerHTML = `
+        <div class="thumb-wrap" id="th-${it.id}">
+          <div class="thumb-ph">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <circle cx="10" cy="10" r="9" stroke="#FFD700" stroke-width="1.5"/>
+              <path d="M1 10h18M10 10.5a.5.5 0 110-1 .5.5 0 010 1z" stroke="#FFD700" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
         </div>`;
 
-      card.appendChild(imgWrap);
-      card.appendChild(body);
-      grid.appendChild(card);
+      tr.appendChild(thumbTd);
 
-      // load image async — no re-render, just update DOM
-      fetchCardImage(it.name).then(imgUrl => {
-        if (imgUrl) imgWrap.innerHTML = `<img src="${imgUrl}" alt="${it.name}" loading="lazy" />`;
-      });
-    }
+      const rest = document.createElement('td');
+      rest.setAttribute('colspan','7');
+      rest.innerHTML = `
+        <table style="width:100%;border-collapse:collapse;"><tr>
+          <td class="td-name"><span class="item-name">${it.name}</span></td>
+          <td class="td-num"><span class="p-usd">$${it.usd}</span></td>
+          <td class="td-num"><span class="p-ars">${fmt(cArs)}</span></td>
+          <td><input type="number" class="sale-inp" value="${it.sale ?? ''}" placeholder="0" step="500" data-id="${it.id}" /></td>
+          <td class="td-num res">${resHtml}</td>
+          <td class="chk-cell"><input type="checkbox" ${it.sold?'checked':''} data-id="${it.id}" /></td>
+          <td><button class="tcg-btn" onclick="window.open('${tcgUrl}','_blank')">TCG ↗</button></td>
+        </tr></table>`;
+      tr.appendChild(rest);
+      tbody.appendChild(tr);
 
-    grid.querySelectorAll('input[type=checkbox]').forEach(chk => {
-      chk.addEventListener('change', e => {
-        const idx = state.findIndex(x => x.id === parseInt(e.target.dataset.id));
-        if (idx !== -1) { state[idx].sold = e.target.checked; scheduleSave(); render(); }
+      // load image async → inject into placeholder
+      getImg(it.name).then(url => {
+        const wrap = document.getElementById('th-' + it.id);
+        if (wrap && url) wrap.innerHTML = `<img src="${url}" alt="${it.name}" loading="lazy" />`;
       });
     });
-    grid.querySelectorAll('.card-sale-input').forEach(inp => {
-      inp.addEventListener('input', e => {
-        const idx = state.findIndex(x => x.id === parseInt(e.target.dataset.id));
-        if (idx !== -1) {
-          const v = parseFloat(e.target.value);
-          state[idx].sale = isNaN(v) ? null : v;
-          scheduleSave(); render();
-        }
+
+    tbody.querySelectorAll('input[type=checkbox]').forEach(c => {
+      c.addEventListener('change', e => {
+        const idx = state.findIndex(x => x.id === +e.target.dataset.id);
+        if (idx >= 0) { state[idx].sold = e.target.checked; scheduleSave(); render(); }
+      });
+    });
+    tbody.querySelectorAll('.sale-inp').forEach(i => {
+      i.addEventListener('input', e => {
+        const idx = state.findIndex(x => x.id === +e.target.dataset.id);
+        if (idx >= 0) { const v=parseFloat(e.target.value); state[idx].sale=isNaN(v)?null:v; scheduleSave(); render(); }
       });
     });
   }
 
-  // --- Admin ---
-  window.openAdmin = function() {
-    document.getElementById('totalInput').value = totalInvertido;
-    renderAdminList();
-    document.getElementById('adminModal').classList.add('open');
+  // ---- ADMIN ----
+  window.openAdmin = () => {
+    document.getElementById('totalInp').value = inv;
+    renderAlist();
+    document.getElementById('modal').classList.add('open');
   };
-  window.closeAdmin = function() {
-    document.getElementById('adminModal').classList.remove('open');
-    editingId = null;
+  window.closeAdmin = () => { document.getElementById('modal').classList.remove('open'); editId=null; };
+  window.saveTotal  = () => {
+    const v = parseFloat(document.getElementById('totalInp').value);
+    if (!isNaN(v)&&v>0){ inv=v; scheduleSave(); render(); }
   };
-  window.saveTotal = function() {
-    const v = parseFloat(document.getElementById('totalInput').value);
-    if (!isNaN(v) && v > 0) { totalInvertido = v; scheduleSave(); render(); }
+  window.addItem = () => {
+    const name=document.getElementById('nName').value.trim();
+    const usd =parseFloat(document.getElementById('nUsd').value);
+    const sale=parseFloat(document.getElementById('nSale').value)||null;
+    if(!name||isNaN(usd)){ alert('Nombre y USD son obligatorios.'); return; }
+    state.push({id:nextId++,name,usd,sale,sold:false});
+    document.getElementById('nName').value='';
+    document.getElementById('nUsd').value='';
+    document.getElementById('nSale').value='';
+    scheduleSave(); renderAlist(); render();
   };
-  window.addItem = function() {
-    const name = document.getElementById('newName').value.trim();
-    const usd  = parseFloat(document.getElementById('newUsd').value);
-    const sale = parseFloat(document.getElementById('newSale').value) || null;
-    if (!name || isNaN(usd)) { alert('Nombre y costo USD son obligatorios.'); return; }
-    state.push({ id: nextId++, name, usd, sale, sold: false });
-    document.getElementById('newName').value = '';
-    document.getElementById('newUsd').value  = '';
-    document.getElementById('newSale').value = '';
-    scheduleSave(); renderAdminList(); render();
+  window.delItem = id => {
+    if(!confirm('¿Borrar este ítem?')) return;
+    state=state.filter(x=>x.id!==id);
+    scheduleSave(); renderAlist(); render();
   };
-  window.deleteItem = function(id) {
-    if (!confirm('¿Borrar este ítem?')) return;
-    state = state.filter(x => x.id !== id);
-    scheduleSave(); renderAdminList(); render();
-  };
-  window.startEdit  = function(id) { editingId = id; renderAdminList(); };
-  window.cancelEdit = function()   { editingId = null; renderAdminList(); };
-  window.saveEdit   = function(id) {
-    const idx = state.findIndex(x => x.id === id);
-    if (idx === -1) return;
-    const name = document.getElementById(`en-${id}`).value.trim();
-    const usd  = parseFloat(document.getElementById(`eu-${id}`).value);
-    const sale = parseFloat(document.getElementById(`es-${id}`).value) || null;
-    if (!name || isNaN(usd)) { alert('Nombre y USD son obligatorios.'); return; }
-    state[idx] = { ...state[idx], name, usd, sale };
-    delete imgCache[state[idx].name]; // clear cache so new image loads
-    editingId = null;
-    scheduleSave(); renderAdminList(); render();
+  window.startEdit  = id => { editId=id; renderAlist(); };
+  window.cancelEdit = ()  => { editId=null; renderAlist(); };
+  window.saveEdit   = id  => {
+    const idx=state.findIndex(x=>x.id===id);
+    if(idx<0) return;
+    const name=document.getElementById(`en${id}`).value.trim();
+    const usd =parseFloat(document.getElementById(`eu${id}`).value);
+    const sale=parseFloat(document.getElementById(`es${id}`).value)||null;
+    if(!name||isNaN(usd)){ alert('Nombre y USD son obligatorios.'); return; }
+    const oldName = state[idx].name;
+    state[idx]={...state[idx],name,usd,sale};
+    if(oldName!==name) delete imgCache[oldName];
+    editId=null; scheduleSave(); renderAlist(); render();
   };
 
-  function renderAdminList() {
-    const fx   = parseFloat(document.getElementById('fxRate').value) || 1420;
-    const list = document.getElementById('adminList');
-    list.innerHTML = '';
+  function renderAlist() {
+    const rate=fx();
+    const list=document.getElementById('alist');
+    list.innerHTML='';
     state.forEach(it => {
-      const div = document.createElement('div');
-      if (editingId === it.id) {
-        div.className = 'admin-edit-row';
-        div.innerHTML = `
-          <div class="form-group">
-            <span class="form-label">Nombre</span>
-            <input class="form-input" id="en-${it.id}" type="text" value="${it.name}" />
+      const div=document.createElement('div');
+      if(editId===it.id){
+        div.className='aedit';
+        div.innerHTML=`
+          <div class="mgroup">
+            <span class="mlabel">Nombre</span>
+            <input class="minput" id="en${it.id}" type="text" value="${it.name}" />
           </div>
-          <div class="edit-row">
-            <div class="form-group">
-              <span class="form-label">Costo USD</span>
-              <input class="form-input" id="eu-${it.id}" type="number" value="${it.usd}" step="0.5" />
-            </div>
-            <div class="form-group">
-              <span class="form-label">Venta ARS</span>
-              <input class="form-input" id="es-${it.id}" type="number" value="${it.sale || ''}" step="500" placeholder="Opcional" />
-            </div>
+          <div class="erow">
+            <div class="mgroup"><span class="mlabel">Costo USD</span>
+              <input class="minput" id="eu${it.id}" type="number" value="${it.usd}" step="0.5" /></div>
+            <div class="mgroup"><span class="mlabel">Venta ARS</span>
+              <input class="minput" id="es${it.id}" type="number" value="${it.sale??''}" step="500" placeholder="Opcional" /></div>
           </div>
           <div style="display:flex;gap:8px;">
-            <button class="btn-save-edit" onclick="saveEdit(${it.id})">GUARDAR</button>
-            <button class="btn-cancel-edit" onclick="cancelEdit()">CANCELAR</button>
+            <button class="esave" onclick="saveEdit(${it.id})">GUARDAR</button>
+            <button class="ecancel" onclick="cancelEdit()">CANCELAR</button>
           </div>`;
       } else {
-        div.className = 'admin-item';
-        div.innerHTML = `
-          <div class="admin-item-info">
-            <div class="admin-item-name">${it.name}</div>
-            <div class="admin-item-meta">$${it.usd} USD · ${fmt(it.usd * fx)} · ${it.sale ? fmt(it.sale) : 'Sin precio venta'} ${it.sold ? '· ✓ VENDIDA' : ''}</div>
+        div.className='aitem';
+        div.innerHTML=`
+          <div class="ainfo">
+            <div class="aname">${it.name}</div>
+            <div class="ameta">$${it.usd} USD · ${fmt(it.usd*rate)} · ${it.sale?fmt(it.sale):'Sin precio venta'}${it.sold?' · ✓ VENDIDA':''}</div>
           </div>
-          <div class="admin-item-actions">
-            <button class="btn-edit" onclick="startEdit(${it.id})">EDITAR</button>
-            <button class="btn-del"  onclick="deleteItem(${it.id})">BORRAR</button>
+          <div class="abtns">
+            <button class="bedit" onclick="startEdit(${it.id})">EDITAR</button>
+            <button class="bdel"  onclick="delItem(${it.id})">BORRAR</button>
           </div>`;
       }
       list.appendChild(div);
     });
   }
 
-  document.getElementById('fxRate').addEventListener('input', () => { scheduleSave(); render(); });
-  document.getElementById('adminModal').addEventListener('click', e => {
-    if (e.target === document.getElementById('adminModal')) closeAdmin();
-  });
+  document.getElementById('fxRate').addEventListener('input', ()=>{ scheduleSave(); render(); });
+  document.getElementById('modal').addEventListener('click', e=>{ if(e.target===document.getElementById('modal')) closeAdmin(); });
 
-  loadState();
+  load();
 </script>
 </body>
 </html>
